@@ -14,13 +14,13 @@ namespace WowVoiceProxyKiller
 
         public static void Main(string[] args)
         {
+            Console.WriteLine("Process started, press ctrl+c to exit");
+
             Console.CancelKeyPress += Console_CancelKeyPress;
 
             while (IsRunning)
             {
-                var wowVoiceProxyProcesses = GetProcesses();
-
-                wowVoiceProxyProcesses.ForEach(process =>
+                GetProcesses().ForEach(process =>
                 {
                     if (process.HasExited) return;
 
@@ -40,8 +40,6 @@ namespace WowVoiceProxyKiller
                     Console.WriteLine($"Killed wow voice proxy process, Total times killed: {TotalKilled} ");
                 });
 
-                wowVoiceProxyProcesses.Clear();
-                
                 Thread.Sleep(SleepInterval);
             }
         }
